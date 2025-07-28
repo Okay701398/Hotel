@@ -4,10 +4,12 @@ services:
   bot:
     build: .
     restart: always
+    working_dir: /app  # ✅ Add this line
     env_file:
       - .env
     depends_on:
       - db
+    command: ["python", "bot/main.py"]  # ✅ Optional override (not needed if in Dockerfile)
 
   db:
     image: postgres:15
