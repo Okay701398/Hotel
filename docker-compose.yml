@@ -1,0 +1,25 @@
+version: '3.9'
+
+services:
+  bot:
+    build: .
+    restart: always
+    env_file:
+      - .env
+    depends_on:
+      - db
+
+  db:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_USER: botgptuser
+      POSTGRES_PASSWORD: password123
+      POSTGRES_DB: botgptdb
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
